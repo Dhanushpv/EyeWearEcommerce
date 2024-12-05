@@ -1,0 +1,51 @@
+<ul class="cards">
+                    
+                    
+                    
+                    <li>
+                        <a href="" class="card">
+                        <span class="card__image" 
+                                  style="background-image: url(${firstImageUrl}); 
+                                         background-position: center; 
+                                         background-repeat: no-repeat; 
+                                         background-size: cover;
+                                         width : 40vw;
+                                         height : 80vh"
+                                  title="${firstImageAlt}">
+                            </span>
+                        <div class="card__overlay">
+                            <div class="card__header w-100">
+                            <svg class="card__arc" ><path /></svg>                 
+                           
+                            <div class="card__header-text">
+                                
+                                <div class=" ">
+                                <h3 class="card__title">${product.title}</h3>
+                                <div class="card__status fs-5 ">₹${product.price}</div>
+                                </div>
+                                
+                            </div>          
+                            </div>
+                            <p class="card__description">${product.description.slice(0, 200) + "..."}</p>
+                        </div>
+                        </a>
+                    </li>    
+                </ul>
+
+
+
+
+
+
+
+                <!-- addtocart -->
+
+                <div class="product-info">
+                    <img src="${imageUrl}" alt="${product?.title || "Unnamed Product"}" />
+                    <h3>${product?.title || "Unnamed Product"}</h3>
+                    <p>Price: $${product?.price?.toFixed(2) || "N/A"}</p>
+                    <p>Quantity: ${item.quantity}</p>
+                </div>
+
+
+                   <!-- addtocart -->

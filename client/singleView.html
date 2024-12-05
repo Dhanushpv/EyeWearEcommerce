@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/singleView.css">
+    <link rel="stylesheet" href="https://cdn.tailgrids.com/tailgrids-fallback.css" />
+
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+              .content-auto {
+                content-visibility: auto;
+              }
+            }
+          </style>
+
+</head>
+
+<body class="body" onload="SingleView(event)">
+    <nav class="pb-3">
+        <div class="bg-gray-800 /* text-white not found */ text-center /* fw-light not found */">FREE SHIPPING ON ORDERS OVER $75</div>
+        <div class="flex justify-evenly items-center pt-3">
+          <div class="text-center /* line not found */">
+            <span class="/* logo_sub1 not found */">NO</span>
+            <span class="/* logo_sub1 not found */">VA</span>
+          </div>
+          <div class="flex justify-between items-center px-5">
+  
+            <div class="px-3 relative">
+              <span class="/* hov not found */">Eyeglasses</span>
+              <!-- <div class="category_hover offcanvas-menu"> -->
+                <div class="/* offcanvas-menu not found */">
+                  <div id="gender_category" class="">asdfgh</div>
+                </div>
+                
+              <!-- </div> -->
+  
+            </div>
+            <div class="px-3 relative">
+              <span class="/* hov not found */">Screen Glasses</span>
+              <div class="/* offcanvas-menu not found */">All Products Submenu</div>
+            </div>
+            <div class="px-3 relative">
+              <span class="/* hov not found */">Kids Glasses</span>
+              <div class="/* offcanvas-menu not found */">New Arrivals Submenu</div>
+            </div>
+            <div class="px-3 relative">
+              <span class="/* hov not found */">Contact Lenses</span>
+              <div class="/* offcanvas-menu not found */">Sunglasses Submenu</div>
+            </div>
+            <div class="px-3 relative">
+              <span class="/* hov not found */">Sunglasses</span>
+              <div class="/* offcanvas-menu not found */">Eyeglasses Submenu</div>
+            </div>
+            <div class="px-3 relative">
+              <span class="/* hov not found */">About</span>
+              <div class="/* offcanvas-menu not found */">About Submenu</div>
+            </div>
+            <div class="px-3 relative">
+              <span class="/* hov not found */">Gift Card</span>
+              <div class="/* offcanvas-menu not found */">Gift Card Submenu</div>
+            </div>
+
+            
+          </div>
+  
+         
+        <div id="" class="pt-2 profile"></div>
+        <div id="" class="pt-2"><img style="width: 40px; height: 40px;" src="https://img.icons8.com/?size=100&id=106886&format=png&color=000000" alt=""></div>
+        </div>
+      </nav>
+      <div class="flex flex-wrap w-full ">
+        <!-- Product View Section -->
+        <div id="SingleProductView" class="w-full sm:w-32 p-2">
+          <!-- Content for SingleProductView -->
+        </div>
+      
+        <!-- Image Container Section -->
+        <div class="w-full sm:w-2/5 p-2">
+          <div class="image_container flex justify-center items-center">
+            <img id="expandedImg" class="w-full h-auto object-contain">
+            <div id="imgtext" class="mt-2 text-center"></div>
+          </div>
+        </div>
+      
+        <!-- Product Details Section -->
+        <div id="productDetails" class="w-full sm:w-1/2 p-2">
+          <!-- Content for ProductDetails -->
+
+
+        </div>
+
+
+      </div>
+      
+      
+      
+    
+      
+
+
+
+      
+  
+
+
+
+    <script src="./script.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clifford: '#da373d',
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+        src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+
+    </head>
+</body>
+
+</html>

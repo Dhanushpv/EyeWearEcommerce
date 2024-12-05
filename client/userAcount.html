@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/addPage.css">
+    <link rel="stylesheet" href="https://cdn.tailgrids.com/tailgrids-fallback.css" />
+
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+              .content-auto {
+                content-visibility: auto;
+              }
+            }
+          </style>
+
+</head>
+
+<body class="body" onload="AccountSection()">
+
+    <nav class="p-3 /* bg-white not found */">
+        <!-- <div class="bg-dark text-white text-center fw-light ">FREE SHIPPING ON ORDERS OVER $75</div> -->
+        <div class="flex justify-between /* align-item-center not found */ /* container-lg not found */">
+          <div class="text-center /* line not found */">
+            <span class="/* logo_sub1 not found */">NO</span>
+            <span class="/* logo_sub1 not found */">VA</span>
+          </div>
+          <div class="pt-7 flex justify-between /* align-item-center not found */ px-5">
+            <div class="px-3"><span class="">All Products</span></div>
+            <div class="px-3"><span class="">New Arrivals</span></div>
+            <div class="px-3"><span class="">Sunglasses</span></div>
+            <div class="px-3"><span class="">Eyeglasses</span></div>
+            <div class="px-3"><span class="">About</span></div>
+            <div class="px-3"><span class="">Gift Card</span></div>
+    
+          </div>
+    
+          <!-- <div id="" class="pt-2 profile"></div>
+                    <div id="" class="pt-4 loginSection"></div> -->
+    
+        </div>
+      </nav>
+  
+        <div>
+            <section class=" lg:pt-[70px] pb-12 lg:pb-[10px]">
+                <div  style="    margin-left: 4.5rem; margin-right: 6.5rem;">
+                    <div class="flex flex-wrap -mx-4">
+                        <div class="w-full px-4">
+                            <div class="   lg:mb-10 max-w-[510px]">
+                                
+                                <h2 class="font-bold text-3xl sm:text-4xl md:text-[40px] text-dark mb-4">Your Account</h2>
+                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap -mx-4 " >
+                        <!-- Card 1 -->
+                        <div class="w-full md:w-1/2 lg:w-1/3 px-4">
+                            <div class="p-10 md:px-7 xl:px-10 rounded-[20px] bg-white shadow-md hover:shadow-lg mb-8">
+                                <div class="w-[70px] h-[70px] flex items-center justify-center rounded-2xl mb-8">
+                                    <img src="https://img.icons8.com/?size=100&id=56426&format=png&color=000000"
+                                        alt="Your Orders">
+                                </div>
+                                <h4 class="font-semibold text-xl text-dark mb-3">Your Orders</h4>
+                                <p class="text-body-color">Track, return, or buy things again.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="w-full md:w-1/2 lg:w-1/3 px-4">
+                            <div class="p-10 md:px-7 xl:px-10 rounded-[20px] bg-white shadow-md hover:shadow-lg mb-8">
+                                <div class="w-[70px] h-[70px] flex items-center justify-center rounded-2xl mb-8">
+                                    <img src="https://img.icons8.com/?size=100&id=7WsDfqzSXCIP&format=png&color=000000"
+                                        alt="Login & Security">
+                                </div>
+                                <h4 class="font-semibold text-xl text-dark mb-3">Login & Security</h4>
+                                <p class="text-body-color">Edit login, name, and mobile number.</p>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div id="dashboard" class="w-full md:w-1/2 lg:w-1/3 px-4">
+                            <!-- Content will be injected based on the user's role -->
+                        </div>
+                        <!-- Card 4 -->
+                        <div id="addProductSection" class="hidden">
+                            <button class="bg-blue-500 text-white px-4 py-2 rounded">Add Product</button>
+                        </div>
+                        
+                        <!-- Card 5 -->
+                        <div class="w-full md:w-1/2 lg:w-1/3 px-4" onClick="AddressPageClick()">
+                            <div class="p-10 md:px-7 xl:px-10 rounded-[20px] bg-white shadow-md hover:shadow-lg mb-8">
+                                <div class="w-[70px] h-[70px] flex items-center justify-center rounded-2xl mb-8">
+                                    <img src="https://img.icons8.com/?size=100&id=yW7lE4dXAhXK&format=png&color=000000"
+                                        alt="Your Addresses">
+                                </div>
+                                <h4 class="font-semibold text-xl text-dark mb-3">Your Addresses</h4>
+                                <p class="text-body-color">Edit addresses for orders and gifts.</p>
+                            </div>
+                        </div>
+                        <!-- Card 6 -->
+                        <div class="w-full md:w-1/2 lg:w-1/3 px-4" >
+                            <div class="p-10 md:px-7 xl:px-10 rounded-[20px] bg-white shadow-md hover:shadow-lg mb-8">
+                                <div class="w-[70px] h-[70px] flex items-center justify-center rounded-2xl mb-8">
+                                    <img src="https://img.icons8.com/?size=100&id=85038&format=png&color=FA5252"
+                                        alt="Your Addresses">
+                                </div>
+                                <h4 class="font-semibold text-xl text-dark mb-3">Your Wish List</h4>
+                                <p class="text-body-color">Shop your wishlist, fulfill your desires</p>
+                            </div>
+                        </div>
+                        <!-- Card 7 -->
+                        <div class="w-full md:w-1/2 lg:w-1/3 px-4" onClick="PaymentPageClick()">
+                            <div class="p-10 md:px-7 xl:px-10 rounded-[20px] bg-white shadow-md hover:shadow-lg mb-8">
+                                <div class="w-[70px] h-[70px] flex items-center justify-center rounded-2xl mb-8">
+                                    <img src="https://img.icons8.com/?size=100&id=22128&format=png&color=000000"
+                                        alt="Your Addresses">
+                                </div>
+                                <h4 class="font-semibold text-xl text-dark mb-3">Payment options</h4>
+                                <p class="text-body-color">Edit or add payment methods</p>
+                            </div>
+                        </div>
+                        <!-- Card 8 -->
+                        <div class="w-full md:w-1/2 lg:w-1/3 px-4" onClick="ContactPageClick()">
+                            <div class="p-10 md:px-7 xl:px-10 rounded-[20px] bg-white shadow-md hover:shadow-lg mb-8">
+                                <div class="w-[70px] h-[70px] flex items-center justify-center rounded-2xl mb-8">
+                                    <img src="https://img.icons8.com/?size=100&id=Yuy5afbK3Pn9&format=png&color=000000"
+                                        alt="Your Addresses">
+                                </div>
+                                <h4 class="font-semibold text-xl text-dark mb-3">Contact Us</h4>
+                                <p class="text-body-color">Contact our customer service via phone or chat</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+        </div>
+  
+
+
+
+    <script src="./script.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clifford: '#da373d',
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+        src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+
+    </head>
+</body>
+
+</html>

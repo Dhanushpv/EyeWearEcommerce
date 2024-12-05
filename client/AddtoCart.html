@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/addPage.css">
+    <link rel="stylesheet" href="https://cdn.tailgrids.com/tailgrids-fallback.css" />
+
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+              .content-auto {
+                content-visibility: auto;
+              }
+            }
+          </style>
+
+</head>
+
+<body onload="CartLoad()">
+
+    <nav class="p-3 /* bg-white not found */">
+        <!-- <div class="bg-dark text-white text-center fw-light ">FREE SHIPPING ON ORDERS OVER $75</div> -->
+        <div class="flex justify-between /* align-item-center not found */ /* container-lg not found */">
+          <div class="text-center /* line not found */">
+            <span class="/* logo_sub1 not found */">NO</span>
+            <span class="/* logo_sub1 not found */">VA</span>
+          </div>
+          <div class="pt-7 flex justify-between /* align-item-center not found */ px-5">
+            <div class="px-3"><span class="">All Products</span></div>
+            <div class="px-3"><span class="">New Arrivals</span></div>
+            <div class="px-3"><span class="">Sunglasses</span></div>
+            <div class="px-3"><span class="">Eyeglasses</span></div>
+            <div class="px-3"><span class="">About</span></div>
+            <div class="px-3"><span class="">Gift Card</span></div>
+    
+          </div>
+    
+          <!-- <div id="" class="pt-2 profile"></div>
+                    <div id="" class="pt-4 loginSection"></div> -->
+    
+        </div>
+      </nav>
+
+      <div id="Cart_Container"></div>
+
+      <div id="cart-items"></div>
+      <footer id="site-footer">
+        <div class="container clearfix">
+    
+          <div class="left">
+            <h2 class="subtotal">Subtotal: <span>163.96</span>€</h2>
+            <h3 class="tax">Taxes (5%): <span>8.2</span>€</h3>
+            <h3 class="shipping">Shipping: <span>5.00</span>€</h3>
+          </div>
+    
+          <div class="right">
+            <h1 class="total">Total: <span>177.16</span>€</h1>
+            <a class="btn">Checkout</a>
+          </div>
+    
+        </div>
+      </footer>
+
+    <script src="./script.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clifford: '#da373d',
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+        src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+
+    </head>
+</body>
+
+</html>
