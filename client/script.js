@@ -378,7 +378,7 @@ async function buyerSection() {
                     <li>
                         <div class="card " >
                             <div class="card__image relative h-32 w-32 " 
-                                    style="background-image: url(${firstImageUrl}); 
+                                    style="background-image: url(${ product.images[3].url}); 
                                             background-position: center; 
                                             background-repeat: no-repeat; 
                                             background-size: cover;
@@ -452,7 +452,7 @@ async function fetchUserDetails() {
         console.log("user", user)
 
         let data = user.data;
-        console.log("data", data);
+        console.log("data23456789", data);
 
         let userId = data._id;
         console.log("userId a s d :", userId);
@@ -478,7 +478,7 @@ async function fetchUserDetails() {
             
         `;
 
-        let responseofProductList = await fetch('/fullProductList', {
+        let responseofProductList = await fetch(`/fullProductList/${id}`, {
             method: 'GET'
         });
         let parsed_data = await responseofProductList.json();
@@ -531,7 +531,7 @@ async function fetchUserDetails() {
                                 <div class="card__header-text">
                                     
                                     <div class=" ">
-                                    <h3 class="card__title " onClick="Product_Detail_View('${product._id}')">${product.title}</h3>
+                                    <h3 class="card__title " onClick="Product_Detail_View('${product._id}')">${product.title.slice(0,27)}</h3>
                                     <div class="card__status fs-5 " onClick="Product_Detail_View('${product._id}')">₹${product.price}</div>
                                     </div>
                                     
@@ -540,7 +540,7 @@ async function fetchUserDetails() {
                                 <button type="button" class="btn btn-primary" onClick="CartClick('${product._id}',${product.price})">Add to Cart</button>
                                 </div>
                             </div>
-                            <p class="card__description" onClick="Product_Detail_View('${product._id}')">${product.description.slice(0, 200) + "..."}</p>
+                            <p class="card__description" onClick="Product_Detail_View('${product._id}')">${product.description.slice(0,200) + "..."}</p>
                             </div>
                         </div>
                     </li>    
@@ -617,7 +617,7 @@ async function AddProducts(event) {
         }
 
         try {
-            let response = await fetch('/uploadProducts', {
+            let response = await fetch(`/uploadProducts/${id}`, {
                 method: 'POST',
                 body: formData,
             });
@@ -649,79 +649,6 @@ function Your_Account() {
 
     window.location.href = `userAcount.html?login=${token_key}&id=${id}`
 
-}
-
-async function AccountSection() {
-    let params = new URLSearchParams(window.location.search);
-    let id = params.get('id');
-    let token_key = params.get('login');
-    let token = localStorage.getItem(token_key);
-
-    console.log('Token:', token);
-    console.log('User ID:', id);
-
-    let userRole;
-
-    try {
-        // Fetch user role from API
-        const response = await fetch(`/individualUser/${id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            }
-        });
-        console.log("response",response);
-
-        let parsed_data = await response.json();
-        console.log("parsed_data account",parsed_data);
-
-
-
-    } catch (error) {
-        console.error('Error fetching user role:', error);
-        alert('Unable to determine user role. Please log in again.');
-        return;
-    }
-
-    // Update the dashboard dynamically based on the user role
-    const dashboardContainer = document.getElementById("dashboard");
-    const addProductSection = document.getElementById("addProductSection");
-
-    if (userRole === "seller") {
-        dashboardContainer.innerHTML = `
-            <div class="p-10 md:px-7 xl:px-10 rounded-[20px] bg-white shadow-md hover:shadow-lg mb-8">
-                <div class="w-[70px] h-[70px] flex items-center justify-center rounded-2xl mb-8">
-                    <img src="https://img.icons8.com/?size=100&id=88300&format=png&color=000000" alt="Seller Dashboard">
-                </div>
-                <h4 class="font-semibold text-xl text-dark mb-3">Seller Dashboard</h4>
-                <p class="text-body-color">Manage sales, track performance effortlessly.</p>
-            </div>`;
-        // Show "Add Product" section for sellers
-        console.log("Showing Add Product Section for Seller");
-        addProductSection.classList.remove('hidden');
-    } else if (userRole === "buyer") {
-        dashboardContainer.innerHTML = `
-            <div class="p-10 md:px-7 xl:px-10 rounded-[20px] bg-white shadow-md hover:shadow-lg mb-8">
-                <div class="w-[70px] h-[70px] flex items-center justify-center rounded-2xl mb-8">
-                    <img src="https://img.icons8.com/?size=100&id=56426&format=png&color=000000" alt="Buyer Dashboard">
-                </div>
-                <h4 class="font-semibold text-xl text-dark mb-3">Buyer Dashboard</h4>
-                <p class="text-body-color">Track, return, or buy things again.</p>
-            </div>`;
-        // Hide "Add Product" section for buyers
-        console.log("Hiding Add Product Section for Buyer");
-        addProductSection.classList.add('hidden');
-    } else {
-        dashboardContainer.innerHTML = `
-            <div class="p-10 md:px-7 xl:px-10 rounded-[20px] bg-white shadow-md hover:shadow-lg mb-8">
-                <h4 class="font-semibold text-xl text-dark mb-3">Unauthorized</h4>
-                <p class="text-body-color">You are not authorized to access this section.</p>
-            </div>`;
-        // Hide "Add Product" section for unauthorized users
-        console.log("Hiding Add Product Section for Unauthorized User");
-        addProductSection.classList.add('hidden');
-    }
 }
 
 async function Product_Detail_View(id) {
@@ -853,7 +780,7 @@ async function SingleView() {
                 <div class=" pt-2 text-sm text-gray-500 font-semibold">🏷️Special PriceGet extra 30% off (price inclusive of cashback/coupon)T&C</div>
                 <div class=" pt-2 text-sm text-green-500 font-semibold">  +8 more offers</div>
                <div class="pt-5">
-                    <button class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 transition">
+                    <button  class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 transition">
                         Add to Cart
                     </button>
                     <button class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 transition ml-2">
@@ -918,6 +845,203 @@ function CartClick(productId, price) {
 
 }
 
+
+
+// async function CartLoad() {
+//     let params = new URLSearchParams(window.location.search);
+//     let productId = params.get('productid');
+//     let userId = params.get('userid');
+//     let price = parseFloat(params.get('price'));
+//     let quantity = parseInt(params.get('quantity'), 10);
+
+//     console.log(`Product ID: ${productId}`);
+//     console.log(`User ID: ${userId}`);
+//     console.log(`Price: ${price.toFixed(2)}`);
+//     console.log(`Quantity: ${quantity}`);
+
+//     // Basic validations
+//     if (!productId || !userId || isNaN(price) || isNaN(quantity) || quantity < 1) {
+//         alert("Invalid or missing product details.");
+//         return;
+//     }
+
+//     try {
+//         let cartFetchResponse = await fetch(`/CartView`, {
+//             method: 'GET',
+//         });
+//         console.log("cartFetchResponse", cartFetchResponse);
+
+//         let cartFetchResult = await cartFetchResponse.json();
+//         let existingCartItems = cartFetchResult.data || [];
+
+//         let existingProduct = existingCartItems.find(item => item.productId === productId);
+
+//         let data;
+//         if (existingProduct) {
+//             // Use the server-provided quantity directly, avoiding repetitive additions
+//             data = {
+//                 productId,
+//                 userId,
+//                 price,
+//                 quantity: existingProduct.quantity, // Keep existing quantity
+//             };
+//         } else {
+//             // Add a new product to the cart with the specified quantity
+//             data = { productId, userId, price, quantity };
+//         }
+
+//         // Fetch existing cart data from `/fullProductList`
+//         let productResponse = await fetch('/AllProducts', { method: 'GET' });
+//         if (!productResponse.ok) {
+//             throw new Error(`Failed to fetch product list: ${productResponse.status}`);
+//         }
+
+//         let productList = await productResponse.json();
+//         let products = productList.data;
+
+//         console.log("Product List:", products);
+
+//         // Add to cart API call
+//         let Cartresponse = await fetch('/addToCart', {
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify(data),
+//         });
+
+//         if (!Cartresponse.ok) {
+//             throw new Error(`Failed to add to cart: ${Cartresponse.status}`);
+//         }
+
+//         let result = await Cartresponse.json();
+//         console.log("API Result:", result);
+
+//         // Display updated cart items
+//         const cartItemsContainer = document.getElementById('cart-items');
+//         cartItemsContainer.innerHTML = ""; // Clear existing items
+//         let updatedCartItems = result.data.addCart.flatMap(cart => cart.items);
+
+//         let totalSubtotal = 0; // To keep track of the full page subtotal
+
+//         updatedCartItems.forEach(item => {
+//             const productElement = document.createElement('div');
+//             productElement.className = 'cart-item';
+
+//             let imageUrl = '/path/to/placeholder-image.jpg';  // Default image in case no URL is found
+//             let product = null;
+
+//             for (let i = 0; i < products.length; i++) {
+//                 if (products[i]._id === item.productId) {
+//                     product = products[i];
+//                     console.log("Found Product:", product);
+
+//                     if (product?.images) {
+//                         if (Array.isArray(product.images)) {
+//                             imageUrl = product?.images?.[3]?.url || imageUrl;
+//                         } else if (typeof product.images === 'object' && product.images.url) {
+//                             imageUrl = product.images.url || imageUrl;
+//                         }
+//                     }
+//                     break;
+//                 }
+//             }
+
+//             console.log("Final Image URL:", imageUrl);
+
+//             productElement.innerHTML = `
+//                 <div class="container mx-auto px-4 sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-6xl ">
+//                     <section id="cart"> 
+//                         <article class="product">
+//                             <header>
+//                                 <a class="remove">
+//                                     <img src="${imageUrl}">
+//                                 </a>
+//                             </header>
+//                             <div class="content">
+//                                 <h1>${product?.title}</h1>
+//                                 <h3>${product?.description.slice(0, 200) + ".."}</h3>
+//                             </div>
+//                             <footer class="content">
+//                                 <button class="qt-minus">-</button>
+//                                 <span class="qt">${item.quantity}</span>
+//                                 <button class="qt-plus">+</button>
+//                                 <h2 class="full-price">
+//                                     $${product?.price?.toFixed(2) || "N/A"}
+//                                 </h2>
+//                             </footer>
+//                         </article>
+//                     </section>
+//                 </div>
+//             `;
+
+//             cartItemsContainer.appendChild(productElement);
+
+//             // Add to totalSubtotal
+//             if (product) {
+//                 totalSubtotal += product.price * item.quantity;
+//             }
+
+//             // Select the buttons and quantity span for this productElement
+//             const minusButton = productElement.querySelector('.qt-minus');
+//             const plusButton = productElement.querySelector('.qt-plus');
+//             const quantitySpan = productElement.querySelector('.qt');
+//             const fullPriceElement = productElement.querySelector('.full-price');
+
+//             let quantity = item.quantity; // Start with the item's quantity
+
+//             minusButton.addEventListener('click', () => {
+//                 if (quantity > 1) {
+//                     quantity -= 1; // Decrement quantity
+//                     quantitySpan.textContent = quantity; // Update the UI
+//                     fullPriceElement.textContent = `$${(quantity * product.price).toFixed(2)}`; // Update the price
+//                     totalSubtotal -= product.price; // Subtract from the totalSubtotal
+//                     updateTotal(); // Update the total amount
+//                 }
+//             });
+
+//             plusButton.addEventListener('click', () => {
+//                 quantity += 1; // Increment quantity
+//                 quantitySpan.textContent = quantity; // Update the UI
+//                 fullPriceElement.textContent = `$${(quantity * product.price).toFixed(2)}`; // Update the price
+//                 totalSubtotal += product.price; // Add to the totalSubtotal
+//                 updateTotal(); // Update the total amount
+//             });
+//         });
+
+//         // Function to update the total amount
+//         function updateTotal() {
+//             let tax = totalSubtotal * 0.05; // Assuming 5% tax
+//             let shipping = 5.00; // Fixed shipping cost
+//             let total = totalSubtotal + tax + shipping;
+
+//             // Debug the calculated values
+//             console.log(`Total Subtotal: ${totalSubtotal}, Tax: ${tax}, Shipping: ${shipping}, Total: ${total}`);
+
+//             // Update the Subtotal section dynamically
+//             const Subtotal = document.getElementById('site-footer');
+//             Subtotal.innerHTML = `
+//                 <div class="container clearfix">
+//                     <div class="left">
+//                         <h2 class="subtotal">Subtotal: <span>${totalSubtotal.toFixed(2)}</span>€</h2>
+//                         <h3 class="tax">Taxes (5%): <span>${tax.toFixed(2)}</span>€</h3>
+//                         <h3 class="shipping">Shipping: <span>${shipping.toFixed(2)}</span>€</h3>
+//                     </div>
+//                     <div class="right">
+//                         <h1 class="total">Total: <span>${total.toFixed(2)}</span>€</h1>
+//                         <a class="btn">Checkout</a>
+//                     </div>
+//                 </div>
+//             `;
+//         }
+
+//         // Initial call to update the total
+//         updateTotal();
+
+//     } catch (error) {
+//         console.error("Error loading cart:", error);
+//         alert("An error occurred. Please try again later.");
+//     }
+// }
+
 async function CartLoad() {
     let params = new URLSearchParams(window.location.search);
     let productId = params.get('productid');
@@ -937,7 +1061,6 @@ async function CartLoad() {
     }
 
     try {
-
         let cartFetchResponse = await fetch(`/CartView`, {
             method: 'GET',
         });
@@ -950,20 +1073,20 @@ async function CartLoad() {
 
         let data;
         if (existingProduct) {
-            // Update the quantity of the existing product
+            // Use the server-provided quantity directly, avoiding repetitive additions
             data = {
                 productId,
                 userId,
                 price,
-                quantity: existingProduct.quantity + quantity,
+                quantity: existingProduct.quantity, // Keep existing quantity
             };
         } else {
-            // Add a new product to the cart
+            // Add a new product to the cart with the specified quantity
             data = { productId, userId, price, quantity };
         }
 
         // Fetch existing cart data from `/fullProductList`
-        let productResponse = await fetch('/fullProductList', { method: 'GET' });
+        let productResponse = await fetch('/AllProducts', { method: 'GET' });
         if (!productResponse.ok) {
             throw new Error(`Failed to fetch product list: ${productResponse.status}`);
         }
@@ -972,7 +1095,6 @@ async function CartLoad() {
         let products = productList.data;
 
         console.log("Product List:", products);
-
 
         // Add to cart API call
         let Cartresponse = await fetch('/addToCart', {
@@ -992,6 +1114,9 @@ async function CartLoad() {
         const cartItemsContainer = document.getElementById('cart-items');
         cartItemsContainer.innerHTML = ""; // Clear existing items
         let updatedCartItems = result.data.addCart.flatMap(cart => cart.items);
+
+        let totalSubtotal = 0; // To keep track of the full page subtotal
+
         updatedCartItems.forEach(item => {
             const productElement = document.createElement('div');
             productElement.className = 'cart-item';
@@ -1004,78 +1129,180 @@ async function CartLoad() {
                     product = products[i];
                     console.log("Found Product:", product);
 
-                    // Check if the product has images and a valid URL
                     if (product?.images) {
-                        console.log("Product Images:", product?.images); // Log the images structure
-
-                        // Access the image URL based on the structure of `images`
                         if (Array.isArray(product.images)) {
-                            // If images is an array of objects, use the first image URL
                             imageUrl = product?.images?.[3]?.url || imageUrl;
                         } else if (typeof product.images === 'object' && product.images.url) {
-                            // If images is an object with a 'url' field
                             imageUrl = product.images.url || imageUrl;
                         }
                     }
-                    break; // Exit loop once product is found
+                    break;
                 }
             }
 
-            console.log("Final Image URL:", imageUrl); // Log the final image URL
+            console.log("Final Image URL:", imageUrl);
 
             productElement.innerHTML = `
-  
+            <div class="container mx-auto px-4 sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-6xl">
+                <section id="cart"> 
+                    <article class="product">
+                        <header>
+                            <img src="${imageUrl}" alt="${product?.title || 'Product Image'}">
+                        </header>
+                        <div class="content">
+                            <h1>${product?.title}</h1>
+                            <h3>${product?.description.slice(0, 200) + ".."}</h3>
+                        </div>
+                        <footer class="content">
+                            <div class="quantity-controls">
+                                <button class="qt-minus">-</button>
+                                <span class="qt">${item.quantity}</span>
+                                <button class="qt-plus">+</button>
+                               
+                            </div>
+                             <span class="remove-text">Remove</span> <!-- Move Remove here -->
+                            <h2 class="full-price">
+                                $${product?.price?.toFixed(2) || "N/A"}
+                            </h2>
+                        </footer>
+                    </article>
+                </section>
+            </div>
+        `;
 
-	<div class="container mx-auto px-4 sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-6xl ">
-
-		<section id="cart"> 
-			<article class="product">
-				<header>
-					<a class="remove">
-						<img src="${imageUrl}">
-
-					</a>
-				</header>
-
-				<div class="content">
-
-					<h1>${product?.title}</h1>
-
-					<h3>${product?.description.slice(0, 200) + ".."}</h3>
-
-					
-				</div>
-
-				<footer class="content">
-					<span class="qt-minus">-</span>
-					<span class="qt">${item.quantity}</span>
-					<span class="qt-plus">+</span>
-
-					<h2 class="full-price">
-						$${product?.price?.toFixed(2) || "N/A"}
-					</h2>
-
-				</footer>
-			</article>
-		</section>
-
-	</div>
-
-	
-            `;
-
-            const cartItemsContainer = document.getElementById('cart-items');
             cartItemsContainer.appendChild(productElement);
+
+            const removeButton = productElement.querySelector('.remove-text');
+            removeButton.addEventListener('click', async () => {
+                try {
+                    // Call the server to remove the item
+                    let response = await fetch(`/removeFromCart/${id}`, {
+                        method: 'DELETE',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            productId: item.productId,
+                            userId: userId
+                        })
+                    });
+            
+                    if (!response.ok) {
+                        throw new Error('Failed to remove item from cart');
+                    }
+            
+                    let result = await response.json();
+                    console.log('Item removed from cart successfully:', result);
+            
+                    // Remove the item from the DOM
+                    productElement.remove();
+            
+                    // Update the total amount
+                    totalSubtotal -= product.price * item.quantity;
+                    updateTotal();
+                } catch (error) {
+                    console.error('Error removing item:', error);
+                    alert('Failed to remove item. Please try again.');
+                }
+            });
+            // Add to totalSubtotal
+            if (product) {
+                totalSubtotal += product.price * item.quantity;
+            }
+
+            // Select the buttons and quantity span for this productElement
+            const minusButton = productElement.querySelector('.qt-minus');
+            const plusButton = productElement.querySelector('.qt-plus');
+            const quantitySpan = productElement.querySelector('.qt');
+            const fullPriceElement = productElement.querySelector('.full-price');
+
+            let quantity = item.quantity; // Start with the item's quantity
+
+            minusButton.addEventListener('click', async () => {
+                if (quantity > 1) {
+                    quantity -= 1; // Decrement quantity
+                    quantitySpan.textContent = quantity; // Update the UI
+                    fullPriceElement.textContent = `$${(quantity * product.price).toFixed(2)}`; // Update the price
+                    totalSubtotal -= product.price; // Subtract from the totalSubtotal
+
+                    // Send updated quantity to the server
+                    await updateCartOnServer(productId, userId, quantity);
+
+                    updateTotal(); // Update the total amount
+                }
+            });
+
+            plusButton.addEventListener('click', async () => {
+                quantity += 1; // Increment quantity
+                quantitySpan.textContent = quantity; // Update the UI
+                fullPriceElement.textContent = `$${(quantity * product.price).toFixed(2)}`; // Update the price
+                totalSubtotal += product.price; // Add to the totalSubtotal
+
+                // Send updated quantity to the server
+                await updateCartOnServer(productId, userId, quantity);
+
+                updateTotal(); // Update the total amount
+            });
         });
 
+        // Function to send updated cart data to the server
+        async function updateCartOnServer(productId, userId, newQuantity) {
+            try {
+                let response = await fetch('/updateCart', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        productId,
+                        userId,
+                        quantity: newQuantity
+                    })
+                });
 
+                if (!response.ok) {
+                    throw new Error('Failed to update cart');
+                }
 
+                let result = await response.json();
+                console.log('Cart updated successfully:', result);
+            } catch (error) {
+                console.error('Error updating cart:', error);
+            }
+        }
+
+        // Function to update the total amount
+        function updateTotal() {
+            let tax = totalSubtotal * 0.05; // Assuming 5% tax
+            let shipping = 5.00; // Fixed shipping cost
+            let total = totalSubtotal + tax + shipping;
+
+            // Debug the calculated values
+            console.log(`Total Subtotal: ${totalSubtotal}, Tax: ${tax}, Shipping: ${shipping}, Total: ${total}`);
+
+            // Update the Subtotal section dynamically
+            const Subtotal = document.getElementById('site-footer');
+            Subtotal.innerHTML = `
+                <div class="container clearfix">
+                    <div class="left">
+                        <h2 class="subtotal">Subtotal: <span>${totalSubtotal.toFixed(2)}</span>€</h2>
+                        <h3 class="tax">Taxes (5%): <span>${tax.toFixed(2)}</span>€</h3>
+                        <h3 class="shipping">Shipping: <span>${shipping.toFixed(2)}</span>€</h3>
+                    </div>
+                    <div class="right">
+                        <h1 class="total">Total: <span>${total.toFixed(2)}</span>€</h1>
+                        <a class="btn">Checkout</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initial call to update the total
+        updateTotal();
 
     } catch (error) {
         console.error("Error loading cart:", error);
         alert("An error occurred. Please try again later.");
     }
 }
+
+
 
 let isRequestInProgress = false;
 
@@ -1138,8 +1365,6 @@ async function AddressPageClick() {
     console.log(id)
 
     window.location.href = `addAddress.html?login=${token_key}&id=${id}`;
-
-
 
 }
 
@@ -1579,13 +1804,28 @@ $(document).ready(function () {
     });
 });
 
-function changeVal(el) {
-    const qt = parseInt(el.siblings('.qt').text());
-    const price = parseFloat(el.closest('.content').find('.full-price').data('price'));
-    const fullPrice = (price * qt).toFixed(2);
-    el.closest('.content').find('.full-price').text(`${fullPrice}€`);
-    changeTotal();
-}
+// Select the buttons and quantity span
+const minusButton = productElement.querySelector('.qt-minus');
+const plusButton = productElement.querySelector('.qt-plus');
+const quantitySpan = productElement.querySelector('.qt');
+const fullPriceElement = productElement.querySelector('.full-price');
+
+let quantity = item.quantity; // Start with the item's quantity
+
+minusButton.addEventListener('click', () => {
+    if (quantity > 1) {
+        quantity -= 1; // Decrement quantity
+        quantitySpan.textContent = quantity; // Update the UI
+        fullPriceElement.textContent = `$${(quantity * product.price).toFixed(2)}`; // Update the price
+    }
+});
+
+plusButton.addEventListener('click', () => {
+    quantity += 1; // Increment quantity
+    quantitySpan.textContent = quantity; // Update the UI
+    fullPriceElement.textContent = `$${(quantity * product.price).toFixed(2)}`; // Update the price
+});
+
 
 function changeTotal() {
     let subtotal = 0;
