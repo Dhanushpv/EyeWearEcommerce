@@ -251,6 +251,7 @@ exports.fetchingGender = async function (req, res) {
 exports.addProducts = async (req, res) => {
     try {
         const body = req.body;
+        let userId = req.params.id
 
         // Fetch related data
         const category = await Categories.findOne({ category: body.category });
@@ -281,8 +282,21 @@ exports.addProducts = async (req, res) => {
         }));
         body.images =images
 
+        let data = {
+            title : body.title,
+            description : body.description,
+            price : body.price,
+            category : body.category,
+            gender:body.gender,
+            brand : body.brand,
+            stock : body.stock,
+            images : body.images,
+            rating : body.rating,
+            userId
+        }
 
-        const productData = await AddData.create(body);
+
+        const productData = await AddData.create(data);
         console.log(productData);
         res.status(200).send({ success: true, message: 'Product successfully added.', data: productData });
     } catch (error) {
@@ -291,37 +305,64 @@ exports.addProducts = async (req, res) => {
     }
 };
 
+exports.allProducts = async (req, res) => {
+
+try {
+            let productOverview = await AddData.find().populate('category').populate('gender');
+    
+            let response = success_function({
+                success: true,
+                statuscode: 200,
+                data: productOverview,
+                message: "User successfully added.",
+    
+            });
+            res.status(response.statuscode).send(response);
+            return;
+    
+        }
+    
+        catch (error) {
+    
+            console.log("error: ", error);
+            let response = error_function({
+                success: false,
+                statuscode: 400,
+                message: "Error adding user"
+            });
+            res.status(response.statuscode).send(response);
+            return;
+        }
+}
+
 exports.viewAllProducts = async (req, res) => {
     try {
+        // Assuming the seller's ID is available in req.user or req.seller (via middleware)
+        const loggedInSellerId = req.params.id
+        // Fetch products added by other sellers only
+        let productOverview = await AddData.find({userId: { $ne: loggedInSellerId }})
+            .populate('category')
+            .populate('gender');
+            console.log("Logged-in seller ID:", loggedInSellerId);
 
-
-
-        let productOverview = await AddData.find().populate('category').populate('gender');
 
         let response = success_function({
             success: true,
             statuscode: 200,
             data: productOverview,
-            message: "User successfully added.",
-
+            message: "Products fetched successfully.",
         });
         res.status(response.statuscode).send(response);
-        return;
-
-    }
-
-    catch (error) {
-
+    } catch (error) {
         console.log("error: ", error);
         let response = error_function({
             success: false,
             statuscode: 400,
-            message: "Error adding user"
+            message: "Error fetching products",
         });
         res.status(response.statuscode).send(response);
-        return;
     }
-}
+};
 
 exports.SingleProductList = async (req, res) => {
     try {
@@ -357,7 +398,7 @@ exports.SingleProductList = async (req, res) => {
 
 exports.addToCart = async (req, res) => {
     try {
-        const { userId, productId, quantity } = req.body;
+        const { userId, productId, quantity, increment } = req.body;
 
         // Validate quantity
         if (!quantity || quantity < 1) {
@@ -406,13 +447,14 @@ exports.addToCart = async (req, res) => {
         const existingProductIndex = cart.items.findIndex(item => item.productId?.toString() === productId);
 
         if (existingProductIndex !== -1) {
-            // Update quantity and price if product exists
-            cart.items[existingProductIndex].quantity += quantity;
+            // Update quantity only if "increment" is true
+            if (increment) {
+                cart.items[existingProductIndex].quantity += quantity;
+            }
         } else {
             // Add the new product to the cart
             cart.items.push({ productId, quantity, price });
         }
-        console.log(existingProductIndex)
 
         // Recalculate the cart's total price
         cart.totalPrice = cart.items.reduce((sum, item) => sum + item.quantity * item.price, 0);
@@ -656,3 +698,27 @@ exports.AddressLoad =async (req, res) => {
     }
 
 }
+
+exports.removeFromCart = async (req, res) => {
+    const { productId, userId } = req.body;
+
+    try {
+        const result = await CartItem.findOneAndDelete({ productId, userId });
+
+        if (!result) {
+            return res.status(404).json({ message: 'Item not found' });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Item removed from cart successfully',
+            data: result
+        });
+    } catch (error) {
+        console.error("Error removing item:", error);
+        res.status(500).json({
+            success: false,
+            message: 'Error removing item from cart'
+        });
+    }
+};

@@ -17,8 +17,9 @@ router.get('/users',userController.getUsertypes);
 router.get('/individualUser/:id',userController.soloUser);
 router.get('/fetchCategory',userController.fetchingCategory);
 router.get('/fetchGender',userController.fetchingGender);
-router.post('/uploadProducts', upload.array('images', 5), userController.addProducts);
-router.get('/fullProductList',userController.viewAllProducts);
+router.post('/uploadProducts/:id', upload.array('images', 5), userController.addProducts);
+router.get('/fullProductList/:id',userController.viewAllProducts);
+router.get('/AllProducts',userController.allProducts);
 router.get('/SingleProductList/:id',userController.SingleProductList);
 router.post('/addToCart',userController.addToCart);
 router.get('/CartView',userController.CartView);
@@ -26,6 +27,7 @@ router.post('/addtowishlist',userController.addWishList);
 router.post('/addAddress/:id', userController.addAddress);
 router.get('/loadWishList/:id',userController.loadWishList)
 router.get('/addAddressLoad/:id',userController.AddressLoad);
+router.delete('/removeFromCart/:id',userController.removeFromCart)
 
 
 
